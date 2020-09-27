@@ -6,11 +6,12 @@ import {
   StatusBar,
   Text,
   Image,
+  TouchableHighlight,
 } from "react-native";
 
 import { useDimensions } from "@react-native-community/hooks";
 
-let Home = () => {
+let Home = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <Image
@@ -25,9 +26,30 @@ let Home = () => {
         </View>
       </View>
 
-      {/* Tagline */}
+      {/* Tagline - Heading */}
       <View style={styles.containerTagline}>
         <Text style={styles.tagline}> Do Something Great !</Text>
+      </View>
+
+      {/* Tagline - Quote */}
+      <View style={styles.tagquote}>
+        <Text style={{ padding: "2em", fontSize: 20 }}>
+          {" "}
+          Yes it's going to be hard, but it's also going to be worth it{" "}
+        </Text>
+      </View>
+
+      {/* Start button */}
+      <View>
+        <TouchableHighlight
+          onPress={() => {
+            navigation.navigate("Main");
+          }}
+        >
+          <View style={styles.button}>
+            <Text style={{ color: "white", fontSize: 20 }}>Let's Go </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -39,6 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(119, 190, 137)",
     justifyContent: "center",
     alignItems: "center",
+    padding: "1em",
   },
 
   titleText: {
@@ -67,6 +90,21 @@ const styles = StyleSheet.create({
   tagline: {
     color: "rgba(100, 100, 100)",
     fontSize: 30,
+    padding: "1em",
+  },
+
+  tagquote: {
+    height: "20%",
+    textAlign: "center",
+  },
+
+  button: {
+    padding: "1em",
+    backgroundColor: "tomato",
+    width: "30%",
+    alignSelf: "center",
+    borderRadius: "10px",
+    textAlign: "center",
   },
 });
 
