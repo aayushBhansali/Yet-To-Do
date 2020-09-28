@@ -2,8 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Platform,
-  StatusBar,
   Text,
   Image,
   TouchableHighlight,
@@ -83,6 +81,7 @@ const styles = StyleSheet.create({
 
   containerTagline: {
     flex: 0.25,
+    margin: "1em",
     justifyContent: "center",
     alignItems: "center",
   },
