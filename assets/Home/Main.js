@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useState } from "react";
 import Tasks from "./Tasks";
 
@@ -14,6 +15,16 @@ function Main({ navigation }) {
   let [tasks, updateTasks] = useState([]);
   let [viewScreen, toggleViewScreen] = useState({ view: 0 });
   let [input, handleInput] = useState("");
+
+  const leftActions = () => {
+    return (
+      <View style={{ flex: 1, borderRadius: 10 }}>
+        <TouchableHighlight style={styles.button}>
+          <Text> Delete </Text>
+        </TouchableHighlight>
+      </View>
+    );
+  };
 
   return (
     // Main View
@@ -28,7 +39,9 @@ function Main({ navigation }) {
           <ScrollView style={{ flex: 1 }}>
             <View style={styles.taskView}>
               {tasks.map((task, index) => (
+                // <Swipeable key={index} renderLeftActions={leftActions}>
                 <Tasks key={index} text={task}></Tasks>
+                // </Swipeable>
               ))}
             </View>
           </ScrollView>
@@ -54,7 +67,7 @@ function Main({ navigation }) {
         <View style={{ flex: 1, alignItems: "center" }}>
           <Text style={styles.addTitle}> Enter the name of the task </Text>
           <TextInput
-            allowFontScaling="true"
+            allowFontScaling={true}
             style={styles.textinput}
             value={input}
             onChangeText={(text) => handleInput(text)}
@@ -82,59 +95,57 @@ let styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   headerText: {
     color: "white",
-    fontSize: "2.5em",
-    fontFamily: "Helvetica",
+    fontSize: 30,
+    fontFamily: "Roboto",
   },
-
   taskView: {
-    padding: "1em",
-    margin: "1em",
+    padding: 10,
+    margin: 10,
     flex: 0.5,
     alignItems: "center",
     justifyContent: "center",
   },
-
   actionButton: {
     flex: 0.2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    padding: "1em",
+    padding: 10,
   },
-
   button: {
-    padding: "1em",
+    padding: 10,
     backgroundColor: "rgba(20, 200, 120, 0.9)",
     width: "auto",
     alignSelf: "center",
-    borderRadius: "10px",
+    borderRadius: 10,
     textAlign: "center",
   },
-
   buttonmar: {
-    padding: "1em",
+    padding: 10,
     backgroundColor: "rgba(20, 200, 120, 0.9)",
     width: "auto",
     alignSelf: "center",
-    borderRadius: "10px",
+    borderRadius: 10,
     textAlign: "center",
-    margin: "1em",
+    margin: 10,
   },
-
   addTitle: {
-    padding: "1em",
-    margin: "1em",
+    padding: 10,
+    margin: 10,
     fontSize: 20,
     textAlign: "center",
   },
-
   textinput: {
+    paddingHorizontal: 10,
     width: "80%",
-    flex: 0.1,
-    border: "1px solid black",
+    flex: 0.2,
+    borderColor: "rgba(100, 100, 100, 0.8)",
+    borderWidth: 2,
+    borderRadius: 8,
+    // fontSize: 20,
+    // height: 30,
   },
 });
 

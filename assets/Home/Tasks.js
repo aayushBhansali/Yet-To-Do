@@ -11,12 +11,11 @@ function Tasks(props) {
 
 let styles = StyleSheet.create({
   task: {
-    padding: "1em",
-    margin: "0.5em",
-    backgroundColor: "rgba(230, 89, 0, 0.4)",
-    boxShadow: "10px 10px 10px rgb(200, 200, 200)",
-    width: "80%",
-    borderRadius: "10px",
+    padding: 10,
+    margin: 10,
+    backgroundColor: "rgba(250, 70, 0, 0.4)",
+    width: "100%",
+    borderRadius: 10,
   },
 });
 

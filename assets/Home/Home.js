@@ -31,9 +31,8 @@ let Home = ({ navigation }) => {
 
       {/* Tagline - Quote */}
       <View style={styles.tagquote}>
-        <Text style={{ padding: "2em", fontSize: 20 }}>
-          {" "}
-          Yes it's going to be hard, but it's also going to be worth it{" "}
+        <Text style={{ fontSize: 20, textAlign: "center" }}>
+          Small steps towards a greater destination{" "}
         </Text>
       </View>
 
@@ -59,50 +58,47 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(119, 190, 137)",
     justifyContent: "center",
     alignItems: "center",
-    padding: "1em",
+    padding: 10,
   },
-
   titleText: {
     color: "white",
     fontSize: 30,
   },
-
   title: {
     width: "50%",
     backgroundColor: "rgba(131,226,8, 0.8)",
-    boxShadow: "5px 5px 5px rgba(100, 100, 100, 0.7)",
-    padding: "1rem",
-    borderRadius: "10px",
+    // boxShadow: "5px 5px 5px rgba(100, 100, 100, 0.7)",
+    padding: 20,
+    borderRadius: 10,
     flex: 0.3,
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
   },
-
   containerTagline: {
     flex: 0.25,
-    margin: "1em",
+    marginHorizontal: 10,
+    marginVertical: 20,
     justifyContent: "center",
     alignItems: "center",
   },
-
   tagline: {
-    color: "rgba(100, 100, 100)",
+    color: "rgb(100, 100, 100)",
     fontSize: 30,
-    padding: "1em",
+    padding: 15,
   },
-
   tagquote: {
+    marginHorizontal: 10,
+    justifyContent: "center",
     height: "20%",
     textAlign: "center",
   },
-
   button: {
-    padding: "1em",
+    padding: 15,
     backgroundColor: "tomato",
     width: "30%",
     alignSelf: "center",
-    borderRadius: "10px",
+    borderRadius: 10,
     textAlign: "center",
   },
 });
