@@ -14,7 +14,7 @@ let styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     backgroundColor: "rgba(250, 70, 0, 0.4)",
-    width: "100%",
+    width: "80%",
     borderRadius: 10,
   },
 });

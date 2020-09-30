@@ -15,16 +15,17 @@ function Main({ navigation }) {
   let [tasks, updateTasks] = useState([]);
   let [viewScreen, toggleViewScreen] = useState({ view: 0 });
   let [input, handleInput] = useState("");
+  let [displayCrossFlag, toggleDisplayFlag] = useState(false);
 
-  const leftActions = () => {
-    return (
-      <View style={{ flex: 1, borderRadius: 10 }}>
-        <TouchableHighlight style={styles.button}>
-          <Text> Delete </Text>
-        </TouchableHighlight>
-      </View>
-    );
-  };
+  // const leftActions = () => {
+  //   return (
+  //     <View style={{ flex: 1, borderRadius: 10 }}>
+  //       <TouchableHighlight style={styles.button}>
+  //         <Text> Delete </Text>
+  //       </TouchableHighlight>
+  //     </View>
+  //   );
+  // };
 
   return (
     // Main View
@@ -40,7 +41,33 @@ function Main({ navigation }) {
             <View style={styles.taskView}>
               {tasks.map((task, index) => (
                 // <Swipeable key={index} renderLeftActions={leftActions}>
-                <Tasks key={index} text={task}></Tasks>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Tasks key={index} text={task}></Tasks>
+                  {displayCrossFlag ? (
+                    <TouchableHighlight
+                      style={[
+                        {
+                          width: "20%",
+                          padding: 15,
+                          backgroundColor: "rgba(255, 0, 0, 0.3)",
+                          borderRadius: 10,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        },
+                      ]}
+                    >
+                      <Text> X </Text>
+                    </TouchableHighlight>
+                  ) : (
+                    <View key={index + 1}></View>
+                  )}
+                </View>
                 // </Swipeable>
               ))}
             </View>
@@ -57,7 +84,16 @@ function Main({ navigation }) {
               <Text style={{ color: "white" }}> Add Entry </Text>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.button}>
+            <TouchableHighlight
+              style={styles.button}
+              onPress={() => {
+                toggleDisplayFlag(true);
+                setTimeout(() => {
+                  console.log("Executing timeout");
+                  toggleDisplayFlag(false);
+                }, 7000);
+              }}
+            >
               <Text style={{ color: "white" }}> Remove Entry </Text>
             </TouchableHighlight>
           </View>
