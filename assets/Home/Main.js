@@ -11,21 +11,17 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useState } from "react";
 import Tasks from "./Tasks";
 
-function Main({ navigation }) {
+function Main() {
   let [tasks, updateTasks] = useState([]);
   let [viewScreen, toggleViewScreen] = useState({ view: 0 });
   let [input, handleInput] = useState("");
   let [displayCrossFlag, toggleDisplayFlag] = useState(false);
 
-  // const leftActions = () => {
-  //   return (
-  //     <View style={{ flex: 1, borderRadius: 10 }}>
-  //       <TouchableHighlight style={styles.button}>
-  //         <Text> Delete </Text>
-  //       </TouchableHighlight>
-  //     </View>
-  //   );
-  // };
+  // Remove a task at the specified entry
+  let removeEntry = (index) => {
+    let newTasks = tasks.filter((task, i) => i !== index);
+    updateTasks(newTasks);
+  };
 
   return (
     // Main View
@@ -34,13 +30,14 @@ function Main({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.headerText}> Tasks for Today </Text>
       </View>
+
+      {/* Display the tasks and if add entry is pressed show dialog to add a new task */}
       {viewScreen.view === 0 ? (
         // JSX for displaying the list - Default
         <View style={{ flex: 1 }}>
           <ScrollView style={{ flex: 1 }}>
             <View style={styles.taskView}>
               {tasks.map((task, index) => (
-                // <Swipeable key={index} renderLeftActions={leftActions}>
                 <View
                   style={{
                     flex: 1,
@@ -48,9 +45,10 @@ function Main({ navigation }) {
                     alignItems: "center",
                   }}
                 >
-                  <Tasks key={index} text={task}></Tasks>
+                  <Tasks text={task}></Tasks>
                   {displayCrossFlag ? (
                     <TouchableHighlight
+                      key={index}
                       style={[
                         {
                           width: "20%",
@@ -61,11 +59,12 @@ function Main({ navigation }) {
                           alignItems: "center",
                         },
                       ]}
+                      onPress={() => removeEntry(index)}
                     >
                       <Text> X </Text>
                     </TouchableHighlight>
                   ) : (
-                    <View key={index + 1}></View>
+                    <View> </View>
                   )}
                 </View>
                 // </Swipeable>
@@ -89,7 +88,6 @@ function Main({ navigation }) {
               onPress={() => {
                 toggleDisplayFlag(true);
                 setTimeout(() => {
-                  console.log("Executing timeout");
                   toggleDisplayFlag(false);
                 }, 7000);
               }}
