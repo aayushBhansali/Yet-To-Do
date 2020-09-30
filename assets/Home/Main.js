@@ -7,7 +7,6 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useState } from "react";
 import Tasks from "./Tasks";
 
@@ -26,16 +25,14 @@ function Main() {
   return (
     // Main View
     <View style={{ flex: 1 }}>
-      {/* Tasks for today */}
       <View style={styles.header}>
         <Text style={styles.headerText}> Tasks for Today </Text>
       </View>
 
-      {/* Display the tasks and if add entry is pressed show dialog to add a new task */}
       {viewScreen.view === 0 ? (
         // JSX for displaying the list - Default
         <View style={{ flex: 1 }}>
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView style={{ height: "50%" }}>
             <View style={styles.taskView}>
               {tasks.map((task, index) => (
                 <View
@@ -44,9 +41,10 @@ function Main() {
                     flexDirection: "row",
                     alignItems: "center",
                   }}
+                  key={index}
                 >
-                  <Tasks text={task}></Tasks>
-                  {displayCrossFlag ? (
+                  <Tasks text={task} />
+                  {displayCrossFlag && (
                     <TouchableHighlight
                       key={index}
                       style={[
@@ -63,38 +61,53 @@ function Main() {
                     >
                       <Text> X </Text>
                     </TouchableHighlight>
-                  ) : (
-                    <View> </View>
                   )}
                 </View>
-                // </Swipeable>
               ))}
             </View>
           </ScrollView>
-          <View style={styles.actionButton}>
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => {
-                toggleViewScreen({
-                  view: 1,
-                });
-              }}
-            >
-              <Text style={{ color: "white" }}> Add Entry </Text>
-            </TouchableHighlight>
 
-            <TouchableHighlight
-              style={styles.button}
-              onPress={() => {
-                toggleDisplayFlag(true);
-                setTimeout(() => {
-                  toggleDisplayFlag(false);
-                }, 7000);
-              }}
+          {displayCrossFlag === false ? (
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
+              <View style={styles.actionButton}>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={() => {
+                    toggleViewScreen({
+                      view: 1,
+                    });
+                  }}
+                >
+                  <Text style={{ color: "white" }}> Add Entry </Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={() => {
+                    toggleDisplayFlag(true);
+                  }}
+                >
+                  <Text style={{ color: "white" }}> Remove Entry </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          ) : (
+            <View
+              style={[
+                { flex: 1, justifyContent: "flex-end" },
+                styles.actionButton,
+              ]}
             >
-              <Text style={{ color: "white" }}> Remove Entry </Text>
-            </TouchableHighlight>
-          </View>
+              <TouchableHighlight
+                style={styles.button}
+                onPress={() => {
+                  toggleDisplayFlag(false);
+                }}
+              >
+                <Text> Done </Text>
+              </TouchableHighlight>
+            </View>
+          )}
         </View>
       ) : (
         // On pressing Add entry, JSX to accept user data
@@ -137,12 +150,11 @@ let styles = StyleSheet.create({
   taskView: {
     padding: 10,
     margin: 10,
-    flex: 0.5,
+    flex: 0.8,
     alignItems: "center",
-    justifyContent: "center",
   },
   actionButton: {
-    flex: 0.2,
+    flex: 0.8,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
