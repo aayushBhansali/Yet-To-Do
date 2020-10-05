@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "To-Do",
-    "slug": "To-Do",
+    "name": "Yet-To-Do",
+    "slug": "Yet-To-Do",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/Images/icon.png",
@@ -19,6 +19,11 @@
     },
     "web": {
       "favicon": "./assets/Images/favicon.png"
-    }
+    },
+    "android": {
+      "package": "com.flail.yetToDo",
+      "versionCode": 1
+    },
+    "description": ""
   }
 }

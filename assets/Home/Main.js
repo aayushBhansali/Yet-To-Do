@@ -7,8 +7,11 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { useState } from "react";
+import * as SQLite from "expo-sqlite";
+import { useState, useEffect } from "react";
 import Tasks from "./Tasks";
+
+const db = SQLite.openDatabase("localStorage.db");
 
 function Main() {
   let [tasks, updateTasks] = useState([]);
@@ -16,10 +19,35 @@ function Main() {
   let [input, handleInput] = useState("");
   let [displayCrossFlag, toggleDisplayFlag] = useState(false);
 
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS Tasks (ID Integer PRIMARY KEY AUTOINCREMENT, Text TEXT NOT NULL)"
+      );
+
+      tx.executeSql(
+        "SELECT * FROM Tasks",
+        null,
+        (txObj, { rows: { _array } }) => {
+          updateTasks(
+            _array.map((item) => {
+              return item["Text"];
+            })
+          );
+        }
+      );
+    });
+  }, []);
+
   // Remove a task at the specified entry
   let removeEntry = (index) => {
+    let toBeRemoved = tasks[index];
     let newTasks = tasks.filter((task, i) => i !== index);
     updateTasks(newTasks);
+
+    db.transaction((tx) => {
+      tx.executeSql("DELETE FROM Tasks WHERE Text = ?", [toBeRemoved]);
+    });
   };
 
   return (
@@ -123,6 +151,16 @@ function Main() {
             style={styles.buttonmar}
             onPress={() => {
               updateTasks([...tasks, input]);
+
+              db.transaction((tx) => {
+                tx.executeSql(
+                  "INSERT INTO Tasks (Text) values (?)",
+                  [input],
+                  (txObj, resultSet) => {},
+                  (txObj, error) => console.log("Error", error)
+                );
+              });
+
               handleInput("");
               toggleViewScreen({ view: 0 });
             }}

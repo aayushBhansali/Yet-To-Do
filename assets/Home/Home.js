@@ -7,8 +7,6 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-import { useDimensions } from "@react-native-community/hooks";
-
 let Home = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>

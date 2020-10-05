@@ -13,7 +13,7 @@ let styles = StyleSheet.create({
   task: {
     padding: 10,
     margin: 10,
-    backgroundColor: "rgba(250, 70, 0, 0.4)",
+    backgroundColor: "rgba(137, 161, 240, 0.6)",
     width: "80%",
     borderRadius: 10,
   },
